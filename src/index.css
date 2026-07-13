@@ -1,0 +1,494 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: #1a1a1a;
+  min-height: 100vh;
+  color: #222;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ── Header ── */
+.app-header {
+  background: #0d0d0d;
+  border-bottom: 3px solid #c41e1e;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.app-header img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #c41e1e;
+}
+.app-header .brand {
+  display: flex;
+  flex-direction: column;
+}
+.app-header .brand-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 3px;
+}
+.app-header .brand-sub {
+  font-size: 0.72rem;
+  color: #aaa;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'Source Serif 4', serif;
+}
+
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+/* ── Layout ── */
+.workspace {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Sidebar Form ── */
+.sidebar {
+  background: #111;
+  border-right: 2px solid #2a2a2a;
+  overflow-y: auto;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  color: #c41e1e;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 8px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-section label {
+  font-size: 0.72rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.form-section input,
+.form-section select,
+.form-section textarea {
+  width: 100%;
+  background: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #eee;
+  padding: 7px 10px;
+  font-size: 0.82rem;
+  font-family: 'Source Serif 4', serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-section input:focus,
+.form-section select:focus,
+.form-section textarea:focus {
+  border-color: #c41e1e;
+}
+
+.field-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.ancestor-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ancestor-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ancestor-row label {
+  font-size: 0.66rem;
+  color: #666;
+  letter-spacing: 1px;
+}
+
+.btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary {
+  background: #c41e1e;
+  color: #fff;
+}
+.btn-primary:hover { background: #a01717; }
+.btn-secondary {
+  background: #2a2a2a;
+  color: #ccc;
+  border: 1px solid #444;
+}
+.btn-secondary:hover { background: #333; color: #fff; }
+
+/* ── Certificate Preview Panel ── */
+.preview-panel {
+  overflow: auto;
+  background: #222;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preview-panel .no-cert {
+  margin: auto;
+  color: #555;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+/* ── Print button ── */
+@media print {
+  .app-header, .sidebar, .preview-panel > .print-bar { display: none !important; }
+  .workspace { grid-template-columns: 1fr; }
+  .preview-panel { padding: 0; background: white; }
+}
+
+.print-bar {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+/* ── Certificate ── */
+.cert-wrap {
+  width: 900px;
+  background: #f9f5ec;
+  position: relative;
+  font-family: 'Source Serif 4', serif;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+}
+
+/* Ornate border system */
+.cert-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 2px solid #8b6914;
+  pointer-events: none;
+  z-index: 2;
+}
+.cert-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 6px solid #8b6914;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cert-border-inner {
+  position: absolute;
+  inset: 16px;
+  border: 1px solid #c4a44a;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cert-body {
+  padding: 40px 44px 36px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header section */
+.cert-header {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.cert-company-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: #1a1a1a;
+  text-transform: uppercase;
+}
+
+.cert-founded {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: #555;
+  font-family: 'Cinzel', serif;
+  margin-top: 2px;
+}
+
+.cert-title-block {
+  margin: 6px 0 10px;
+}
+
+.cert-title {
+  font-family: 'IM Fell English', serif;
+  font-size: 2.6rem;
+  font-style: italic;
+  color: #c41e1e;
+  line-height: 1;
+  text-align: center;
+}
+
+.cert-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  color: #333;
+  text-align: center;
+  margin-top: 2px;
+}
+
+.cert-divider {
+  height: 3px;
+  background: linear-gradient(to right, transparent, #8b6914 20%, #8b6914 80%, transparent);
+  margin: 8px 0;
+}
+.cert-divider-thin {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #8b6914 20%, #8b6914 80%, transparent);
+  margin: 4px 0;
+}
+
+/* Dog info block */
+.cert-dog-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 24px;
+  margin: 10px 0 12px;
+  font-size: 0.78rem;
+}
+.cert-dog-info-row {
+  display: flex;
+  gap: 6px;
+  padding: 2px 0;
+  border-bottom: 1px solid rgba(139,105,20,0.2);
+}
+.cert-dog-info-label {
+  font-weight: 600;
+  color: #444;
+  min-width: 90px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.cert-dog-info-value {
+  color: #111;
+  font-size: 0.8rem;
+}
+
+.cert-dog-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+/* Pedigree tree */
+.pedigree-grid {
+  display: grid;
+  grid-template-columns: 180px 180px 180px 165px;
+  gap: 0;
+  border-left: 1px solid #8b6914;
+  margin: 8px 0;
+  font-size: 0.7rem;
+  position: relative;
+}
+
+.ped-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.ped-col-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #8b6914;
+  text-align: center;
+  padding: 2px 0 4px;
+  border-bottom: 1px solid #c4a44a;
+}
+
+.ped-cell {
+  border-bottom: 1px solid rgba(139,105,20,0.35);
+  border-right: 1px solid rgba(139,105,20,0.35);
+  padding: 5px 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.ped-cell-label {
+  font-size: 0.55rem;
+  color: #8b6914;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Cinzel', serif;
+}
+
+.ped-cell-name {
+  font-weight: 600;
+  color: #111;
+  font-size: 0.72rem;
+  line-height: 1.3;
+  font-family: 'Playfair Display', serif;
+}
+
+.ped-cell-info {
+  font-size: 0.62rem;
+  color: #555;
+  margin-top: 1px;
+}
+
+/* Watermark stamp */
+.cert-stamp {
+  position: absolute;
+  opacity: 0.08;
+  width: 260px;
+  height: 260px;
+  object-fit: contain;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Footer */
+.cert-footer {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.cert-footer-stamp {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+.cert-footer-center {
+  text-align: center;
+}
+
+.cert-footer-seal-text {
+  font-size: 0.62rem;
+  color: #555;
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.cert-sig-line {
+  border-top: 1px solid #8b6914;
+  padding-top: 4px;
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #333;
+  text-align: center;
+}
+.cert-sig-role {
+  font-size: 0.6rem;
+  color: #777;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: 'Source Serif 4', serif;
+  font-style: normal;
+  text-align: center;
+}
+
+.cert-reg-block {
+  text-align: right;
+  font-size: 0.62rem;
+  color: #555;
+}
+.cert-reg-block .bdi-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #c41e1e;
+  letter-spacing: 3px;
+  display: block;
+}
+
+/* Sire/Dam labels on left */
+.ped-sire-dam {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(139,105,20,0.4);
+}
+
+.ped-sire-dam-half {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(139,105,20,0.35);
+}
+
+.ped-sire-dam-half:last-child {
+  border-bottom: none;
+}
+
+/* responsive */
+@media (max-width: 1200px) {
+  .workspace { grid-template-columns: 300px 1fr; }
+}
+@media (max-width: 900px) {
+  .workspace { grid-template-columns: 1fr; }
+  .sidebar { max-height: 50vh; }
+  .cert-wrap { width: 100%; min-width: 320px; transform: scale(0.7); transform-origin: top center; }
+}
