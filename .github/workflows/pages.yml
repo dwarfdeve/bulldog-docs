@@ -27,9 +27,14 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to gh-pages branch
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: dist
-          branch: gh-pages
-          clean: true
+      - name: Deploy to gh-pages
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          cd dist
+          git init -b gh-pages
+          git add -A
+          git commit -m "Deploy: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push --force \
+            https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/dwarfdeve/bulldog-docs.git \
+            gh-pages:gh-pages
