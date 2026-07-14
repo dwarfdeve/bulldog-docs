@@ -20,12 +20,12 @@ export default function ReceiptLayout({ doc, data, computed }) {
   return (
     <div className="receipt-wrap">
       {/* Watermark */}
-      <img src="/bdi-logo.jpeg" className="receipt-watermark" alt="" aria-hidden />
+      <img src="./bdi-logo.jpeg" className="receipt-watermark" alt="" aria-hidden />
 
       {/* ── Header ── */}
       <div className="receipt-header">
         <div className="receipt-header-left">
-          <img src="/bdi-logo.jpeg" alt="BDI" className="receipt-logo" />
+          <img src="./bdi-logo.jpeg" alt="BDI" className="receipt-logo" />
         </div>
         <div className="receipt-header-right">
           <div className="receipt-biz-name">{data.issuerName || 'Bulldog Inc.'}</div>
@@ -194,7 +194,7 @@ export default function ReceiptLayout({ doc, data, computed }) {
           <div className="receipt-sig-title">{data.signatureTitle}</div>
         </div>
         <div className="receipt-stamp-block">
-          <img src="/bdi-logo.jpeg" alt="BDI" className="receipt-stamp" />
+          <img src="./bdi-logo.jpeg" alt="BDI" className="receipt-stamp" />
           <div className="receipt-stamp-text">BDI · QUALITY ASSURED</div>
         </div>
       </div>

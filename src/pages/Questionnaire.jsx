@@ -39,7 +39,7 @@ export default function Questionnaire({ onComplete }) {
       <div className="q-card">
         {/* Header */}
         <div className="q-header">
-          <img src="/bdi-logo.jpeg" alt="BDI" className="q-logo" />
+          <img src="./bdi-logo.jpeg" alt="BDI" className="q-logo" />
           <div>
             <div className="q-brand">BULLDOG INC.</div>
             <div className="q-sub">Document Generator Setup</div>

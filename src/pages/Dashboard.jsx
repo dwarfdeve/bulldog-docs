@@ -10,7 +10,7 @@ export default function Dashboard({ onSelectDoc, onEditProfile }) {
       {/* Header */}
       <header className="dash-header">
         <div className="dash-brand">
-          <img src="/bdi-logo.jpeg" alt="BDI" className="dash-logo" />
+          <img src="./bdi-logo.jpeg" alt="BDI" className="dash-logo" />
           <div>
             <div className="dash-title">BULLDOG INC.</div>
             <div className="dash-sub">Document Generator</div>
