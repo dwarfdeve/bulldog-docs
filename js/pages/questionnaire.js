@@ -88,7 +88,7 @@ export function renderQuestionnaire(root, { profile, updateProfile, completeProf
         ${field('Website (optional)', 'website', { placeholder: 'www.bulldoginc.com' })}
       `
     } else if (step === 2) {
-      const pmOptions = ['Cash', 'Zelle', 'Venmo', 'PayPal', 'Credit Card', 'Check', 'Wire Transfer']
+      const pmOptions = ['Cash', 'Zelle', 'Venmo', 'PayPal', 'Credit Card', 'Check', 'Wire Transfer', 'Gift Card', 'Cryptocurrency']
       body.innerHTML = `
         <h2 class="q-title">Business Details</h2>
         <p class="q-hint">Used on invoices and official receipts.</p>

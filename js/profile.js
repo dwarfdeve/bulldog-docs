@@ -20,7 +20,7 @@ const DEFAULTS = {
   licenseNum: '',
   defaultBreed: 'French Bulldog',
   taxRate: '0',
-  paymentMethods: ['Cash', 'Zelle', 'Venmo', 'Credit Card'],
+  paymentMethods: ['Cash', 'Zelle', 'Venmo', 'PayPal', 'Credit Card', 'Gift Card', 'Cryptocurrency'],
   commonItems: [
     { name: 'French Bulldog Puppy', price: '3500' },
     { name: 'Stud Service Fee', price: '1500' },

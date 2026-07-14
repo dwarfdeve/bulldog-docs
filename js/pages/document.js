@@ -138,7 +138,7 @@ export function renderDocumentPage(root, { docId, profile, onBack }) {
   }
 
   function mainFormHtml() {
-    const payMethods = profile.paymentMethods?.length ? profile.paymentMethods : ['Cash', 'Zelle', 'Venmo', 'Credit Card']
+    const payMethods = profile.paymentMethods?.length ? profile.paymentMethods : ['Cash', 'Zelle', 'Venmo', 'PayPal', 'Credit Card', 'Gift Card', 'Cryptocurrency']
 
     return `
       <div class="form-sections">
