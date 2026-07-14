@@ -1,1 +1,0 @@
-- [BDI Doc Generator Architecture](bdi-doc-gen.md) — questionnaire → dashboard (19 doc types) → doc editor; all state in localStorage; 3 layout renderers (receipt/log/cert).

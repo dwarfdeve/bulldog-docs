@@ -1,3 +1,5 @@
+import bdiLogo from '../assets/bdi-logo.jpeg'
+
 function fmt(date) {
   if (!date) return '—'
   const d = new Date(date + 'T00:00:00')
@@ -24,7 +26,7 @@ export default function Certificate({ data }) {
   return (
     <div className="cert-wrap">
       {/* Stamp watermark */}
-      <img src="./bdi-logo.jpeg" className="cert-stamp" alt="" aria-hidden="true" />
+      <img src={bdiLogo} className="cert-stamp" alt="" aria-hidden="true" />
 
       <div className="cert-border-inner" />
 
@@ -127,7 +129,7 @@ export default function Certificate({ data }) {
         <div className="cert-footer">
           {/* Left — stamp */}
           <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:4}}>
-            <img src="./bdi-logo.jpeg" className="cert-footer-stamp" alt="BDI Seal" />
+            <img src={bdiLogo} className="cert-footer-stamp" alt="BDI Seal" />
             <span style={{fontFamily:'Cinzel,serif',fontSize:'0.58rem',letterSpacing:'2px',color:'#8b6914'}}>BDI · QUALITY STAMP</span>
           </div>
 

@@ -1,0 +1,17 @@
+# Build output — GitHub Actions builds this, do not commit
+dist/
+
+# Dependencies
+node_modules/
+
+# Replit / local dev
+.cache/
+attached_assets/
+*.local
+.replit
+.local/
+.agents/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,4 +1,5 @@
 // Table-based log layout: Food Consumption Log, Feed/Supplement Log, Vaccination Record
+import bdiLogo from '../assets/bdi-logo.jpeg'
 
 function fmtDate(d) {
   if (!d) return '—'
@@ -14,12 +15,12 @@ export default function LogLayout({ doc, data }) {
   return (
     <div className="log-wrap">
       {/* Watermark */}
-      <img src="./bdi-logo.jpeg" className="receipt-watermark" alt="" aria-hidden />
+      <img src={bdiLogo} className="receipt-watermark" alt="" aria-hidden />
 
       {/* ── Header ── */}
       <div className="log-header">
         <div className="log-header-left">
-          <img src="./bdi-logo.jpeg" alt="BDI" className="log-logo" />
+          <img src={bdiLogo} alt="BDI" className="log-logo" />
         </div>
         <div className="log-header-center">
           <div className="log-biz-name">{data.issuerName || 'Bulldog Inc.'}</div>
@@ -108,7 +109,7 @@ export default function LogLayout({ doc, data }) {
           <div className="receipt-sig-title">{data.signatureTitle || 'Handler / Keeper'}</div>
         </div>
         <div className="receipt-stamp-block">
-          <img src="./bdi-logo.jpeg" alt="BDI" className="receipt-stamp" />
+          <img src={bdiLogo} alt="BDI" className="receipt-stamp" />
           <div className="receipt-stamp-text">BDI · QUALITY ASSURED</div>
         </div>
       </div>
