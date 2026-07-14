@@ -1,5 +1,6 @@
 // Onboarding questionnaire — collects business profile before first use
 import { esc } from '../utils.js'
+import { STATES, TITLES, BREEDS } from '../options.js'
 
 const STEPS = ['Identity', 'Contact', 'Business', 'Quick Items']
 
@@ -13,6 +14,33 @@ export function renderQuestionnaire(root, { profile, updateProfile, completeProf
       <div class="q-field">
         <label class="q-label">${esc(label)}</label>
         <input class="q-input" type="${type}" data-key="${key}" value="${esc(local[key])}" placeholder="${esc(placeholder)}" />
+      </div>
+    `
+  }
+
+  function selectField(label, key, options) {
+    return `
+      <div class="q-field">
+        <label class="q-label">${esc(label)}</label>
+        <select class="q-input" data-key="${key}">
+          ${options.map(o => `<option ${local[key] === o ? 'selected' : ''}>${esc(o)}</option>`).join('')}
+        </select>
+      </div>
+    `
+  }
+
+  // Text input backed by a native <datalist> — shows a full dropdown of
+  // suggestions on focus/typing, but still allows a custom value.
+  function datalistField(label, key, options, opts = {}) {
+    const { placeholder = '' } = opts
+    const listId = `dl-${key}`
+    return `
+      <div class="q-field">
+        <label class="q-label">${esc(label)}</label>
+        <input class="q-input" type="text" list="${listId}" data-key="${key}" value="${esc(local[key])}" placeholder="${esc(placeholder)}" />
+        <datalist id="${listId}">
+          ${options.map(o => `<option value="${esc(o)}"></option>`).join('')}
+        </datalist>
       </div>
     `
   }
@@ -65,9 +93,9 @@ export function renderQuestionnaire(root, { profile, updateProfile, completeProf
           ${field('First Name *', 'firstName', { placeholder: 'John' })}
           ${field('Last Name *', 'lastName', { placeholder: 'Doe' })}
         </div>
-        ${field('Business / Kennel Name *', 'businessName', { placeholder: 'Bulldog Inc.' })}
+        ${field('Business / Kennel Name *', 'businessName', { placeholder: 'BullDogInc' })}
         <div class="q-grid2">
-          ${field('Your Title / Role', 'title', { placeholder: 'Breeder & Owner' })}
+          ${selectField('Your Title / Role', 'title', TITLES)}
           ${field('Year Established', 'estYear', { placeholder: '2020' })}
         </div>
       `
@@ -78,7 +106,7 @@ export function renderQuestionnaire(root, { profile, updateProfile, completeProf
         ${field('Street Address', 'street', { placeholder: '123 Kennel Lane' })}
         <div class="q-grid3">
           ${field('City', 'city', { placeholder: 'Atlanta' })}
-          ${field('State', 'state', { placeholder: 'GA' })}
+          ${selectField('State', 'state', STATES)}
           ${field('ZIP', 'zip', { placeholder: '30301' })}
         </div>
         <div class="q-grid2">
@@ -97,7 +125,7 @@ export function renderQuestionnaire(root, { profile, updateProfile, completeProf
           ${field('License # (optional)', 'licenseNum', { placeholder: 'USDA-12345' })}
         </div>
         <div class="q-grid2">
-          ${field('Default Breed', 'defaultBreed', { placeholder: 'French Bulldog' })}
+          ${datalistField('Default Breed', 'defaultBreed', BREEDS, { placeholder: 'French Bulldog' })}
           ${field('Default Tax Rate %', 'taxRate', { placeholder: '0', type: 'number' })}
         </div>
         <label class="q-label" style="margin-top:12px">Accepted Payment Methods</label>
@@ -133,7 +161,7 @@ export function renderQuestionnaire(root, { profile, updateProfile, completeProf
       renderItems()
     }
 
-    body.querySelectorAll('input[data-key]').forEach(input => {
+    body.querySelectorAll('input[data-key], select[data-key]').forEach(input => {
       input.addEventListener('input', e => {
         local[e.target.dataset.key] = e.target.value
       })

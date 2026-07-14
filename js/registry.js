@@ -170,6 +170,7 @@ export const DOCS = [
     dogFields: true,
     logColumns: ['Dog Name / ID', 'Vaccine Type', 'Date Given', 'Next Due Date', 'Lot # / Vet'],
     logColumnWidths: ['20%', '22%', '16%', '16%', '26%'],
+    logColumnLists: { 1: 'VACCINES' },
   },
 
   // ── Finance ──────────────────────────────────────────────────

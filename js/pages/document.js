@@ -1,6 +1,9 @@
 // Document page — split form (left) + live printable preview (right)
 import { esc } from '../utils.js'
 import { getDoc, buildInitialState } from '../registry.js'
+import { BREEDS, COLORS, VACCINES } from '../options.js'
+
+const NAMED_LISTS = { VACCINES }
 import { renderReceipt } from '../layouts/receipt.js'
 import { renderLog } from '../layouts/log.js'
 import { renderCertificate, renderCertificateAKC, renderCertificateUKC, mapCertData } from '../layouts/certificate.js'
@@ -107,6 +110,32 @@ export function renderDocumentPage(root, { docId, profile, onBack }) {
       </div>
     `
   }
+  function nestedDatalistField(label, key1, key2, options) {
+    const val = (data[key1] || {})[key2] || ''
+    const listId = `dl-${key1}-${key2}`
+    return `
+      <div class="form-field">
+        <label class="form-label">${esc(label)}</label>
+        <input class="q-input" type="text" list="${listId}" data-nested="${key1}.${key2}" value="${esc(val)}" />
+        <datalist id="${listId}">
+          ${options.map(o => `<option value="${esc(o)}"></option>`).join('')}
+        </datalist>
+      </div>
+    `
+  }
+  function datalistField(label, key, options, opts = {}) {
+    const { placeholder = '' } = opts
+    const listId = `dl-${key}`
+    return `
+      <div class="form-field">
+        <label class="form-label">${esc(label)}</label>
+        <input class="q-input" type="text" list="${listId}" data-field="${key}" value="${esc(data[key])}" placeholder="${esc(placeholder)}" />
+        <datalist id="${listId}">
+          ${options.map(o => `<option value="${esc(o)}"></option>`).join('')}
+        </datalist>
+      </div>
+    `
+  }
   function selectField(label, key, options) {
     return `
       <div class="form-field">
@@ -162,9 +191,9 @@ export function renderDocumentPage(root, { docId, profile, onBack }) {
         `)}
 
         ${doc.dogFields ? section('Dog / Animal Info', `
-          ${row(textField('Dog Name', 'dogName', { placeholder: 'Registered name' }) + textField('Breed', 'dogBreed', { placeholder: 'French Bulldog' }))}
-          ${row(textField('Date of Birth', 'dogDob', { type: 'date' }) + selectField('Sex', 'dogSex', ['Male', 'Female']))}
-          ${row(textField('Color / Markings', 'dogColor', { placeholder: 'Fawn / Blue / Merle' }) + textField('Reg / ID #', 'dogRegNum', { placeholder: 'BDI-000001' }))}
+          ${row(textField('Dog Name', 'dogName', { placeholder: 'Registered name' }) + datalistField('Breed', 'dogBreed', BREEDS, { placeholder: 'French Bulldog' }))}
+          ${row(textField('Date of Birth', 'dogDob', { type: 'date' }) + selectField('Sex', 'dogSex', ['Male', 'Female', 'Male (Neutered)', 'Female (Spayed)']))}
+          ${row(datalistField('Color / Markings', 'dogColor', COLORS, { placeholder: 'Fawn / Blue / Merle' }) + textField('Reg / ID #', 'dogRegNum', { placeholder: 'BDI-000001' }))}
           ${(doc.id === 'puppy-sale' || doc.id === 'breeding-service' || doc.id === 'shipping-manifest') ? textField('Microchip #', 'dogMicrochip') : ''}
         `) : ''}
 
@@ -193,6 +222,7 @@ export function renderDocumentPage(root, { docId, profile, onBack }) {
 
         ${doc.layout === 'log' ? section('Log Entries', `
           ${row(textField('Log Date', 'logDate', { type: 'date' }) + selectField('Period', 'logPeriod', ['Daily', 'Weekly', 'Monthly', 'Custom']))}
+          ${logColumnDatalistsHtml()}
           <div class="log-entry-list" id="log-rows">
             ${(data.logEntries || []).map((r, i) => logRowHtml(r, i)).join('')}
           </div>
@@ -220,14 +250,26 @@ export function renderDocumentPage(root, { docId, profile, onBack }) {
     `
   }
 
+  function logColumnDatalistsHtml() {
+    const colLists = doc.logColumnLists || {}
+    return Object.entries(colLists).map(([c, listName]) => {
+      const options = NAMED_LISTS[listName]
+      if (!options) return ''
+      return `<datalist id="dl-log-${c}">${options.map(o => `<option value="${esc(o)}"></option>`).join('')}</datalist>`
+    }).join('')
+  }
+
   function logRowHtml(r, i) {
     const cols = doc.logColumns || []
+    const colLists = doc.logColumnLists || {}
     return `
       <div class="log-entry-row" data-log-row="${i}">
         <span class="log-row-num">${i + 1}</span>
-        ${[0, 1, 2, 3, 4].map(c => `
-          <input class="q-input log-cell" data-log-cell="${i}.c${c}" value="${esc(r[`c${c}`] || '')}" placeholder="${esc(cols[c] || '')}" />
-        `).join('')}
+        ${[0, 1, 2, 3, 4].map(c => {
+          const listName = colLists[c]
+          const listAttr = listName ? ` type="text" list="dl-log-${c}"` : ''
+          return `<input class="q-input log-cell"${listAttr} data-log-cell="${i}.c${c}" value="${esc(r[`c${c}`] || '')}" placeholder="${esc(cols[c] || '')}" />`
+        }).join('')}
         <button class="q-rm" data-rm-log-row="${i}">✕</button>
       </div>
     `
@@ -242,28 +284,28 @@ export function renderDocumentPage(root, { docId, profile, onBack }) {
         `)}
         ${section('Dog', `
           ${textField('Registered Name', 'dogName2', { placeholder: "CH BDI IRON LEGEND" })}
-          ${row(textField('Reg #', 'regNumber') + textField('Breed', 'breed'))}
-          ${row(selectField('Sex', 'sex', ['Male', 'Female']) + textField('Color', 'color'))}
+          ${row(textField('Reg #', 'regNumber') + datalistField('Breed', 'breed', BREEDS))}
+          ${row(selectField('Sex', 'sex', ['Male', 'Female']) + datalistField('Color', 'color', COLORS))}
           ${row(textField('Date Whelped', 'dob', { type: 'date' }) + textField('Owner', 'owner'))}
           ${textField('Breeder', 'breeder')}
         `)}
         ${section('Sire', `
           ${nestedField('Sire Name', 'sire', 'name')}
-          ${row(nestedField('Reg #', 'sire', 'reg') + nestedField('Color', 'sire', 'color'))}
+          ${row(nestedField('Reg #', 'sire', 'reg') + nestedDatalistField('Color', 'sire', 'color', COLORS))}
         `)}
         ${section('Dam', `
           ${nestedField('Dam Name', 'dam', 'name')}
-          ${row(nestedField('Reg #', 'dam', 'reg') + nestedField('Color', 'dam', 'color'))}
+          ${row(nestedField('Reg #', 'dam', 'reg') + nestedDatalistField('Color', 'dam', 'color', COLORS))}
         `)}
         ${section('Grandparents', `
           ${nestedField("Sire's Sire", 'siresSire', 'name')}
-          ${row(nestedField('Reg #', 'siresSire', 'reg') + nestedField('Color', 'siresSire', 'color'))}
+          ${row(nestedField('Reg #', 'siresSire', 'reg') + nestedDatalistField('Color', 'siresSire', 'color', COLORS))}
           ${nestedField("Sire's Dam", 'siresDam', 'name')}
-          ${row(nestedField('Reg #', 'siresDam', 'reg') + nestedField('Color', 'siresDam', 'color'))}
+          ${row(nestedField('Reg #', 'siresDam', 'reg') + nestedDatalistField('Color', 'siresDam', 'color', COLORS))}
           ${nestedField("Dam's Sire", 'damsSire', 'name')}
-          ${row(nestedField('Reg #', 'damsSire', 'reg') + nestedField('Color', 'damsSire', 'color'))}
+          ${row(nestedField('Reg #', 'damsSire', 'reg') + nestedDatalistField('Color', 'damsSire', 'color', COLORS))}
           ${nestedField("Dam's Dam", 'damsDam', 'name')}
-          ${row(nestedField('Reg #', 'damsDam', 'reg') + nestedField('Color', 'damsDam', 'color'))}
+          ${row(nestedField('Reg #', 'damsDam', 'reg') + nestedDatalistField('Color', 'damsDam', 'color', COLORS))}
         `)}
       </div>
     `

@@ -2,10 +2,10 @@
 
 const DEFAULTS = {
   // Step 1 – Identity
-  firstName: 'John',
-  lastName: 'Doe',
-  businessName: 'Bulldog Inc.',
-  title: 'Breeder & Owner',
+  firstName: 'Jennifer',
+  lastName: 'Sitwell',
+  businessName: 'BullDogInc',
+  title: 'Owner & Breeder',
   estYear: '2020',
   // Step 2 – Contact
   street: '123 Kennel Lane',
