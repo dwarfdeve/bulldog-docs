@@ -4,6 +4,7 @@ export const CATEGORIES = [
   'Sales & Revenue',
   'Purchases',
   'Services',
+  'Shipping & Delivery',
   'Food Logs',
   'Medical & Health',
   'Finance',
@@ -94,6 +95,34 @@ export const DOCS = [
     description: 'Boarding and daycare services',
     dogFields: true,
     dateRange: true,
+  },
+
+  // ── Shipping & Delivery ──────────────────────────────────────
+  {
+    id: 'shipping-manifest', name: 'Puppy Shipping Manifest', icon: '✈️',
+    category: 'Shipping & Delivery', color: '#0369a1',
+    layout: 'receipt', prefix: 'SHP',
+    recipientLabel: 'CONSIGNEE / RECEIVING PARTY',
+    description: 'Air/ground puppy shipment manifest with health & crate details',
+    dogFields: true,
+    dateRange: true,
+    isShipping: true,
+  },
+  {
+    id: 'health-travel-cert', name: 'Health & Travel Certificate', icon: '🩺',
+    category: 'Shipping & Delivery', color: '#0e7490',
+    layout: 'receipt', prefix: 'HTC',
+    recipientLabel: 'TRAVELING TO / AIRLINE',
+    description: 'USDA-style interstate/international travel health certificate',
+    dogFields: true,
+    isPurchase: true,
+  },
+  {
+    id: 'food-delivery', name: 'Food Delivery Receipt', icon: '🚚',
+    category: 'Shipping & Delivery', color: '#b45309',
+    layout: 'receipt', prefix: 'FDL',
+    recipientLabel: 'DELIVERED TO',
+    description: 'Bulk kibble / supplement delivery confirmation',
   },
 
   // ── Food Logs ────────────────────────────────────────────────
@@ -202,8 +231,6 @@ export function nextDocNumber(prefix) {
 export function buildInitialState(doc, profile) {
   const today = new Date().toISOString().split('T')[0]
   const fullName = `${profile.firstName || ''} ${profile.lastName || ''}`.trim()
-  const address = [profile.street, `${profile.city}, ${profile.state} ${profile.zip}`]
-    .filter(Boolean).join(', ')
 
   const base = {
     docNumber: nextDocNumber(doc.prefix),
@@ -259,7 +286,7 @@ export function buildInitialState(doc, profile) {
     signatureName: fullName,
     signatureTitle: profile.title || 'Owner',
 
-    // Cert (pedigree) state — matches Certificate.jsx expectations
+    // Cert (pedigree) state — matches certificate.js expectations
     certType: 'Heritage Pedigree',
     certNumber: nextDocNumber('PED'),
     dogName2: '', regNumber: '', breed: profile.defaultBreed || 'French Bulldog',

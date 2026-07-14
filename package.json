@@ -1,12 +1,12 @@
 {
-  "name": "workspace",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "bulldog-docs",
+  "version": "2.0.0",
+  "description": "BDI Document Generator — static HTML/CSS/JS (no framework, no build step)",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -15,15 +15,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/dwarfdeve/bulldog-docs/issues"
   },
-  "homepage": "https://github.com/dwarfdeve/bulldog-docs#readme",
-  "dependencies": {
-    "@vitejs/plugin-react": "^6.0.3",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "vite": "^8.1.4"
-  }
+  "homepage": "https://github.com/dwarfdeve/bulldog-docs#readme"
 }
