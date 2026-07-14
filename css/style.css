@@ -697,6 +697,115 @@ select.q-input option { background: var(--dark3); }
 .cert-reg-block .bdi-label { font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; color: #c41e1e; letter-spacing: 3px; display: block; }
 
 /* ══════════════════════════════════════════════════════════
+   AKC-STYLE CERTIFICATE ("Certified Pedigree" — US blue format)
+══════════════════════════════════════════════════════════ */
+.akc-wrap {
+  width: 900px;
+  background: #fdfbf1;
+  position: relative;
+  font-family: 'Source Serif 4', serif;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  border: 10px solid #1d3d8f;
+  outline: 2px solid #3556a8;
+  outline-offset: -16px;
+}
+.akc-border-inner { position: absolute; inset: 20px; border: 1px dashed #7086bd; pointer-events: none; }
+.akc-body { padding: 30px 40px 26px; position: relative; }
+.akc-header { display: flex; align-items: center; gap: 18px; margin-bottom: 6px; }
+.akc-badge {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  width: 74px; flex-shrink: 0;
+}
+.akc-badge img { width: 52px; height: 52px; object-fit: contain; border-radius: 50%; border: 2px solid #1d3d8f; }
+.akc-badge span { font-family: 'Cinzel', serif; font-size: 0.5rem; text-align: center; color: #1d3d8f; letter-spacing: 0.5px; line-height: 1.2; }
+.akc-header-text { flex: 1; text-align: center; }
+.akc-org { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 3px; color: #1a1a1a; }
+.akc-title { font-family: 'IM Fell English', serif; font-style: italic; font-size: 2.3rem; color: #c41e1e; line-height: 1.1; }
+.akc-divider { height: 2px; background: linear-gradient(to right, transparent, #1d3d8f 15%, #1d3d8f 85%, transparent); margin: 6px 0 12px; }
+.akc-grid { display: grid; grid-template-columns: 260px 1fr; gap: 20px; }
+.akc-info-col { display: flex; flex-direction: column; gap: 3px; }
+.akc-dog-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.05rem; color: #111; margin-bottom: 4px; }
+.akc-info-row { font-size: 0.74rem; color: #333; }
+.akc-breed { font-weight: 600; }
+.akc-parent-block { margin-top: 8px; display: flex; flex-direction: column; }
+.akc-parent-label { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 1.5px; color: #1d3d8f; }
+.akc-parent-name { font-weight: 600; font-size: 0.8rem; color: #111; }
+.akc-parent-info { font-size: 0.65rem; color: #555; }
+.akc-seal { margin-top: 16px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.akc-seal-circle {
+  width: 56px; height: 56px; border-radius: 50%;
+  border: 2px solid #1d3d8f; display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', serif; font-weight: 900; color: #1d3d8f; font-size: 0.9rem;
+}
+.akc-sig { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.85rem; color: #333; border-top: 1px solid #999; padding-top: 3px; margin-top: 4px; min-width: 180px; }
+.akc-sig-role { font-size: 0.58rem; color: #777; letter-spacing: 1px; text-transform: uppercase; }
+.akc-tree-col { display: flex; flex-direction: column; gap: 4px; }
+.akc-tree-label { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 2px; text-transform: uppercase; color: #1d3d8f; text-align: center; padding: 2px 0 4px; border-bottom: 1px solid #7086bd; }
+.akc-tree-grandparents, .akc-tree-greatgp, .akc-tree-gen4 { display: flex; flex-direction: column; border: 1px solid rgba(29,61,143,0.35); margin-bottom: 4px; }
+.akc-tree-greatgp { display: grid; grid-template-columns: 1fr 1fr; }
+.akc-tree-gen4 { display: grid; grid-template-columns: 1fr 1fr; }
+.akc-tree-greatgp .akc-tree-label, .akc-tree-gen4 .akc-tree-label { grid-column: 1 / -1; }
+.akc-footnote { font-size: 0.62rem; color: #555; font-style: italic; text-align: center; margin-top: 4px; }
+
+/* ══════════════════════════════════════════════════════════
+   UKC-STYLE CERTIFICATE ("Heritage Pedigree" — UK/int'l black-framed format)
+══════════════════════════════════════════════════════════ */
+.ukc-outer-frame {
+  width: 900px;
+  background: #0a0a0a;
+  padding: 18px;
+  box-shadow: 0 12px 50px rgba(0,0,0,0.7);
+}
+.ukc-wrap {
+  position: relative;
+  background: #f7f1de;
+  padding: 26px 34px 24px;
+  font-family: 'Source Serif 4', serif;
+  border: 1px solid #8b6914;
+}
+.ukc-watermark {
+  position: absolute; opacity: 0.05; width: 320px; height: 320px;
+  object-fit: contain; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none;
+}
+.ukc-corner { position: absolute; width: 26px; height: 26px; border: 2px solid #8b6914; }
+.ukc-corner.tl { top: 6px; left: 6px; border-right: none; border-bottom: none; }
+.ukc-corner.tr { top: 6px; right: 6px; border-left: none; border-bottom: none; }
+.ukc-corner.bl { bottom: 6px; left: 6px; border-right: none; border-top: none; }
+.ukc-corner.br { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+.ukc-topline { display: flex; justify-content: space-between; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 1.5px; color: #8b6914; margin-bottom: 6px; position: relative; }
+.ukc-banner { text-align: center; margin: 4px 0 2px; position: relative; }
+.ukc-banner-inner {
+  display: inline-block; background: linear-gradient(#8b6914, #c4a44a, #8b6914);
+  color: #1a1200; font-family: 'Cinzel', serif; font-weight: 700; font-size: 0.78rem;
+  letter-spacing: 2px; padding: 6px 22px; border-radius: 3px; text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.ukc-est { text-align: center; font-size: 0.55rem; letter-spacing: 2px; color: #8b6914; margin-top: 2px; font-family: 'Cinzel', serif; }
+.ukc-title { text-align: center; font-family: 'IM Fell English', serif; font-style: italic; font-size: 1.8rem; color: #c41e1e; margin-top: 6px; position: relative; }
+.ukc-dogname { text-align: center; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.25rem; color: #111; margin-top: 4px; letter-spacing: 1px; position: relative; }
+.ukc-seal { position: absolute; top: 18px; right: 26px; }
+.ukc-seal-ring {
+  width: 62px; height: 62px; border-radius: 50%;
+  border: 3px double #c41e1e; display: flex; align-items: center; justify-content: center; gap: 2px;
+  font-family: 'Cinzel', serif; font-weight: 900; color: #c41e1e; font-size: 0.85rem;
+  background: rgba(196,30,30,0.05);
+}
+.ukc-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 20px; font-size: 0.72rem; color: #333; margin: 14px 0 10px; position: relative; }
+.ukc-meta-label { font-weight: 600; color: #8b6914; }
+.ukc-parents { margin: 10px 0; position: relative; }
+.ukc-parent-row { display: flex; gap: 8px; align-items: baseline; }
+.ukc-parent-label { font-family: 'Cinzel', serif; font-size: 0.62rem; color: #8b6914; letter-spacing: 1px; min-width: 42px; }
+.ukc-parent-name { font-weight: 700; font-size: 0.85rem; color: #111; }
+.ukc-arrow-row { display: flex; justify-content: space-between; font-size: 0.62rem; color: #555; padding: 2px 0 6px 50px; }
+.ukc-arrow { color: #8b6914; font-size: 1rem; }
+.ukc-tree { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0; position: relative; }
+.ukc-tree-col { border: 1px solid rgba(139,105,20,0.4); display: flex; flex-direction: column; }
+.ukc-tree-head { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 2px; text-transform: uppercase; color: #8b6914; text-align: center; padding: 3px 0 5px; border-bottom: 1px solid rgba(139,105,20,0.3); }
+.ukc-footer { display: flex; justify-content: space-between; font-size: 0.65rem; color: #444; margin-top: 10px; padding-top: 6px; border-top: 1px solid rgba(139,105,20,0.3); position: relative; }
+.ukc-guarantee { font-size: 0.58rem; color: #666; font-style: italic; line-height: 1.5; margin-top: 10px; text-align: center; position: relative; }
+
+/* ══════════════════════════════════════════════════════════
    PRINT STYLES
 ══════════════════════════════════════════════════════════ */
 @media print {
@@ -716,6 +825,8 @@ select.q-input option { background: var(--dark3); }
     page-break-inside: avoid;
   }
   .cert-wrap { box-shadow: none !important; width: 100% !important; }
+  .akc-wrap { box-shadow: none !important; width: 100% !important; }
+  .ukc-outer-frame { box-shadow: none !important; width: 100% !important; }
 }
 
 /* ══════════════════════════════════════════════════════════
